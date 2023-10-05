@@ -3,8 +3,8 @@
 @section('content')
     <h1>All Categories</h1>
     <a href="{{ route('cats.create') }}" class="btn btn-sm btn-success">Add<i class="material-icons">add</i></a>
-    <table class="table">
-        <thead>
+    <table class="table my-3">
+        <thead class="table-dark">
             <tr>
                 <th>#</th>
                 <th>Name</th>

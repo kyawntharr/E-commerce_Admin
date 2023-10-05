@@ -10,7 +10,7 @@
     </div>
 
     <table class="table">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>#</th>
                 <th>Name</th>
@@ -28,7 +28,7 @@
                             alt=""></td>
                     <td>
                         <a href="{{ route('subcategory.show', $cat->id) }}" class="btn btn-sm btn-info"><i
-                                class="material-icons">visibility</i> </a>
+                                class="material-icons">info</i> </a>
 
                         <a href="{{ route('subcategory.edit', $cat->id) }}" class="btn btn-sm btn-warning"><i
                                 class="material-icons">edit</i></a>

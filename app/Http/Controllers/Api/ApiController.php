@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -69,20 +71,59 @@ class ApiController extends Controller
 
     public function cats()
     {
-        $cats = Category::all();
+        $cats = Category::get()->load('subcats');
         return response()->json([
             'con' => true,
             'message' => 'All Categories',
-            'categories' => $cats
+            'categories' => $cats,
         ]);
     }
 
-    public function subcats($id){
+    public function subcats($id)
+    {
         $subcats = SubCategory::where('category_id', $id)->get();
         return response()->json([
             'con' => true,
             'message' => 'All Sub Categories',
-            'sub_cats' => $subcats
+            'sub_cats' => $subcats,
+        ]);
+    }
+
+    public function tags()
+    {
+        $tags = Tag::all();
+        return response()->json([
+            'con' => true,
+            'message' => 'All tags',
+            'tags' => $tags,
+        ]);
+    }
+
+    public function products(Request $request)
+    {
+        $products = Product::paginate(10);
+        return response()->json([
+            'con' => true,
+            'message' => 'All products',
+            'products' => $products,
+        ]);
+    }
+    public function productByCategory(Request $request,$id)
+    {
+        $products = Product::where('category_id',$id)->simplePaginate(10);
+        return response()->json([
+            'con' => true,
+            'message' => 'All products by category',
+            'products' => $products,
+        ]);
+    }
+    public function productByTag(Request $request,$id)
+    {
+        $products = Product::where('tag_id',$id)->simplePaginate(10);
+        return response()->json([
+            'con' => true,
+            'message' => 'All products by Tag',
+            'products' => $products,
         ]);
     }
 }

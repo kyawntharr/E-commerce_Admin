@@ -27,7 +27,7 @@
                             $images = explode(',', $product->images);
                         @endphp
                         @foreach ($images as $image)
-                        <img src="{{ url('/uploads/product/'.$image) }}" width="50px" height="50px" alt="">
+                            <img src="{{ url('/uploads/product/' . $image) }}" width="50px" height="50px" alt="">
                         @endforeach
                     </td>
                     <td>{{ $product->colors }}</td>
@@ -46,7 +46,10 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+                @endforeach
         </tbody>
     </table>
+    {{-- <div class="d-flex justify-content-center">
+        {{ $products->links() }}
+    </div> --}}
 @endsection

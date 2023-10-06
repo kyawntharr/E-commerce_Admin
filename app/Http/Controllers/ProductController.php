@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(2);
         return view('product.index', compact('products'));
     }
 
@@ -57,9 +57,10 @@ class ProductController extends Controller
         }
     }
 
-    public function show(Product $product)
+    public function show(Product $product,$id)
     {
-        //
+        $product = Product::find($id);
+        return view('product.show', compact('product'));
     }
 
     public function edit($id)

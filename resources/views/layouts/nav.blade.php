@@ -12,6 +12,7 @@
                         <a class="nav-link" aria-current="page" href="#">Home</a>
                     </li>
                     <li><a class="nav-link" href="{{ route('cats.index') }}">Category</a></li>
+                    <li><a class="nav-link" href="{{ route('all-order') }}">Orders</a></li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

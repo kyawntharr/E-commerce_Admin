@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TagController;
@@ -17,4 +19,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('/categories.subcategory', SubCategoryController::class)->shallow();
     Route::resource('/tags', TagController::class);
     Route::resource('/products', ProductController::class);
+    Route::get('/orders',[OrderController::class,'allorder'])->name('all-order');
+    Route::get('/orderitems/{id}',[OrderItemController::class,'orderItemById'])->name('orderitembyId');
 });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Tag;
@@ -108,22 +110,94 @@ class ApiController extends Controller
             'products' => $products,
         ]);
     }
-    public function productByCategory(Request $request,$id)
+    public function productByCategory(Request $request, $id)
     {
-        $products = Product::where('category_id',$id)->simplePaginate(10);
+        $products = Product::where('category_id', $id)->simplePaginate(10);
         return response()->json([
             'con' => true,
             'message' => 'All products by category',
             'products' => $products,
         ]);
     }
-    public function productByTag(Request $request,$id)
+    public function productByTag(Request $request, $id)
     {
-        $products = Product::where('tag_id',$id)->simplePaginate(10);
+        $products = Product::where('tag_id', $id)->simplePaginate(10);
         return response()->json([
             'con' => true,
             'message' => 'All products by Tag',
             'products' => $products,
+        ]);
+    }
+
+    public function setOrder(Request $request)
+    {
+        $orders = $request->orders;
+        $orderId = $this->saveOrder($orders);
+
+        foreach ($orders as $ord) {
+            $product = Product::find($ord['id']);
+
+            $orderItem = new OrderItem();
+            $orderItem->order_id = $orderId;
+            $orderItem->user_id = auth()->user()->id;
+            $orderItem->category_id = $product->category_id;
+            $orderItem->subcat_id = $product->subcat_id;
+            $orderItem->tag_id = $product->tag_id;
+            $orderItem->name = $product->name;
+            $orderItem->price = $product->price;
+            $orderItem->images = $product->images;
+            $orderItem->color = $product->colors;
+            $orderItem->size = $product->sizes;
+            $orderItem->count = $ord['count'];
+            $orderItem->total = $product->price * $ord['count'];
+            $orderItem->save();
+        }
+
+        return response()->json([
+            'con' => true,
+            'message' => 'order request success',
+        ]);
+    }
+
+    public function saveOrder($orders)
+    {
+        $order = new Order();
+
+        $total = 0;
+        foreach ($orders as $ord) {
+            $product = Product::find($ord['id']);
+            $total += $product->price * $ord['count'];
+        }
+
+        $order->user_id = auth()->user()->id;
+        $order->count = count($orders);
+        $order->status = false;
+        $order->total = $total;
+
+        $order->save();
+        return $order->id;
+    }
+
+    public function myOrder(Request $request)
+    {
+        $orders = Order::where('user_id', auth()->user()->id)
+            ->get()
+            ->load('orderitems');
+
+        return response()->json([
+            'con' => true,
+            'message' => 'all orders',
+            'orders' => $orders,
+        ]);
+    }
+    public function oribyorder($id)
+    {
+        $orderItems = OrderItem::where('order_id', $id)->get();
+
+        return response()->json([
+            'con' => true,
+            'message' => 'all order items.',
+            'order_items' => $orderItems,
         ]);
     }
 }

@@ -10,7 +10,8 @@
                     <th>Name</th>
                     <th>Count</th>
                     <th>Total</th>
-                    <th>Action</th>
+                    <th>Items</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,7 +22,18 @@
                         <td>{{ $order->count }}</td>
                         <td>{{ $order->total }}</td>
                         <td>
-                            <a href="{{ route('orderitembyId',$order->id) }}" class="btn btn-sm btn-info"><i class="material-icons">visibility</i></a>
+                            <a href="{{ route('orderitembyId', $order->id) }}" class="btn btn-sm btn-info"><i
+                                    class="material-icons">visibility</i></a>
+                        </td>
+                        <td>
+                            <form action="{{ route('order.status', $order->id) }}" method="POST">
+                                @csrf
+                                {{-- @method('PATCH') --}}
+                                <button
+                                    class="btn btn-sm @if ($order->status) btn-success
+                                @else
+                                    btn-danger @endif">Accept</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

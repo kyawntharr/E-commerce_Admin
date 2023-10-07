@@ -3,9 +3,6 @@
 @section('content')
     <h1 class="text-center text-primary mt-4" style="text-shadow: 2px 2px 4px rgba(0, 153, 51, 0.5);">E-commerce Admin</h1>
     <div class="col-md-6 offset-md-3">
-        @php
-            $email = 'mgkyawn@gmail.com';
-        @endphp
 
         <form method="post" class="shadow py-5 px-4">
             @csrf
@@ -23,3 +20,13 @@
         </form>
     </div>
 @endsection
+@push('script')
+<script>
+    let check = localStorage.getItem('rememberMe');
+    if (check == 'true') {
+            let email = localStorage.getItem('email');
+            document.querySelector('#email').value = email;
+            document.querySelector('#rememberMe').checked = check == 'true';
+        }
+    </script>
+@endpush

@@ -64,6 +64,7 @@
         let subcats = "{{ $subcats }}";
         subcats = subcats.replace(/&quot;/g, "\"");
         subcats = JSON.parse(subcats);
+        console.log(subcats);
 
         let catChange = (e) => {
             let cat_id = e.target.value;

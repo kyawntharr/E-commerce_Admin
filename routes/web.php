@@ -21,4 +21,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('/products', ProductController::class);
     Route::get('/orders',[OrderController::class,'allorder'])->name('all-order');
     Route::get('/orderitems/{id}',[OrderItemController::class,'orderItemById'])->name('orderitembyId');
+    Route::post('/order/{id}',[OrderController::class,'updateStatus'])->name('order.status');
 });

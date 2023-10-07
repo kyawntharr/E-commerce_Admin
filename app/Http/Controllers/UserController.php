@@ -15,11 +15,12 @@ class UserController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
+
         $user = User::where('email', $email)->first();
         if ($user) {
             if (Hash::check($password, $user->password)) {
                 Auth::login($user);
-                return redirect()->route('admin.home');
+                return redirect()->route('admin.home')->with('info', $request->rememberMe ?? 'off');
             } else {
                 return redirect()
                     ->back()

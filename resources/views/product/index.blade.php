@@ -27,7 +27,8 @@
                             $images = explode(',', $product->images);
                         @endphp
                         @foreach ($images as $image)
-                            <img src="{{ url('/uploads/product/' . $image) }}" width="50px" height="50px" alt="">
+                            <img src="{{ url('/uploads/product/' . $image) }}" width="50px" height="50px" alt=""
+                                onclick="showLightBox('{{ url('/uploads/product/' . $image) }}')">
                         @endforeach
                     </td>
                     <td>{{ $product->colors }}</td>
@@ -46,10 +47,34 @@
                         </form>
                     </td>
                 </tr>
-                @endforeach
+            @endforeach
         </tbody>
     </table>
+    <div class="modal" tabindex="-1" id="lightBox">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="" alt="" class="img-fluid" id="img">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- <div class="d-flex justify-content-center">
         {{ $products->links() }}
     </div> --}}
 @endsection
+@push('script')
+    <script>
+        let showLightBox = (image) => {
+            let img = document.querySelector('#img');
+            img.src = image;
+            let myModal = new bootstrap.Modal(document.getElementById('lightBox'), {
+                keyboard: false
+            })
+            myModal.show();
+        }
+    </script>
+@endpush

@@ -9,7 +9,7 @@
 
         <form method="post" class="shadow py-5 px-4">
             @csrf
-            <x-input name="email" type="email" value="kyawntharmdy@gmail.com"></x-input>
+            <x-input name="email" type="email"></x-input>
             <x-input name="password" type="password"></x-input>
             <div class="row g-0">
                 <div class="my-3 form-check">

@@ -32,7 +32,15 @@
                                 <button
                                     class="btn btn-sm @if ($order->status) btn-success
                                 @else
-                                    btn-danger @endif">Accept</button>
+                                    btn-danger @endif">
+                                    @if ($order->status)
+                                    Accept
+                                    <i class="material-icons">check_circle</i>
+                                    @else
+                                    Denine
+                                    <i class="material-icons">unpublished</i>
+                                    @endif
+                                </button>
                             </form>
                         </td>
                     </tr>

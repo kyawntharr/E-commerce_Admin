@@ -77,7 +77,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'All Categories',
-            'categories' => $cats,
+            'data' => $cats,
         ]);
     }
 
@@ -87,7 +87,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'All Sub Categories',
-            'sub_cats' => $subcats,
+            'data' => $subcats,
         ]);
     }
 
@@ -97,7 +97,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'All tags',
-            'tags' => $tags,
+            'data' => $tags,
         ]);
     }
 
@@ -107,7 +107,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'All products',
-            'products' => $products,
+            'data' => $products,
         ]);
     }
     public function productByCategory(Request $request, $id)
@@ -116,7 +116,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'All products by category',
-            'products' => $products,
+            'data' => $products,
         ]);
     }
     public function productByTag(Request $request, $id)
@@ -125,7 +125,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'All products by Tag',
-            'products' => $products,
+            'data' => $products,
         ]);
     }
 
@@ -187,7 +187,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'all orders',
-            'orders' => $orders,
+            'data' => $orders,
         ]);
     }
     public function oribyorder($id)
@@ -197,7 +197,7 @@ class ApiController extends Controller
         return response()->json([
             'con' => true,
             'message' => 'all order items.',
-            'order_items' => $orderItems,
+            'data' => $orderItems,
         ]);
     }
 }
